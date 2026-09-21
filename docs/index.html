@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evidence Ingestion</title>
+<title>Evidence-First Document Ingestion</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-:root{--navy:#0f1e3a;--green:#a8d5a2;--yellow:#fde68a;--bg:#eef5ee;--card:#ffffff}
+:root{--navy:#0f1e3a;--green:#a8d5a2;--yellow:#fde68a;--bg:#eef5ee;--card:#ffffff;--warn:#fde68a;--warn-bd:#b45309}
 html,body{margin:0;padding:0}
 body{
   font-family:'Inter','Noto Sans TC',sans-serif;
@@ -83,18 +83,18 @@ body.dark .pill button.active{background:white;color:#0f1e3a}
   font-size:13px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;opacity:.7;margin:0 0 18px;
 }
 .hero h2{
-  margin:0;line-height:.88;font-weight:900;letter-spacing:-.04em;
-  font-size:clamp(52px,8vw,92px);color:var(--navy);
+  margin:0;line-height:.92;font-weight:900;letter-spacing:-.04em;
+  font-size:clamp(38px,6vw,66px);color:var(--navy);
 }
 body.dark .hero h2{color:#f1f5f9}
-.hero h2 .slash{font-weight:400;opacity:.5}
 .zh-block{margin-top:28px}
 .zh-block h3{
   margin:0;font-size:clamp(22px,3vw,28px);font-weight:900;line-height:1.15;
 }
-.zh-block p{margin:10px 0 0;font-size:15px;opacity:.75;font-weight:600;max-width:420px;line-height:1.6}
+.zh-block p{margin:10px 0 0;font-size:15px;opacity:.75;font-weight:600;max-width:440px;line-height:1.6}
+.tagline{margin-top:14px;font-weight:800;letter-spacing:.02em;font-size:15px}
 .card{
-  flex:0 0 430px;background:var(--card);border:3px solid var(--navy);border-radius:32px;
+  flex:0 0 460px;background:var(--card);border:3px solid var(--navy);border-radius:32px;
   padding:26px 22px 18px;box-shadow:14px 14px 0 var(--navy);position:relative;
 }
 body.dark .card{background:#1e293b;border-color:#334155;box-shadow:14px 14px 0 #020617;color:#f1f5f9}
@@ -119,10 +119,12 @@ body.dark .menu-row:hover .arrow{background:#0f1e3a;color:white}
 #detail-view{display:none}
 .detail{display:none}
 .detail.active{display:block}
-.detail h4{margin:2px 0 10px;font-size:20px;font-weight:900;letter-spacing:-.02em}
+.detail h4{margin:2px 0 10px;font-size:19px;font-weight:900;letter-spacing:-.02em}
 .detail .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
 .badge{border:2px solid var(--navy);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800;background:var(--yellow)}
+.badge.ok{background:#a8d5a2}
 body.dark .badge{border-color:#334155;background:#1e293b;color:#fde68a}
+body.dark .badge.ok{color:#a8d5a2}
 .detail p{font-size:13.5px;line-height:1.65;margin:0 0 12px;opacity:.9}
 .detail ul{margin:0 0 12px 18px;padding:0;font-size:13px;line-height:1.6}
 .detail ul li{margin:4px 0}
@@ -146,6 +148,82 @@ body.dark .card-footer{border-top-color:#334155}
 body.dark .icon{background:#0f172a;border-color:#334155}
 .icon:hover{transform:translateY(-1px)}
 .muted{font-size:11.5px;opacity:.7;font-weight:600;letter-spacing:.02em}
+
+/* Section 02 pipeline flow */
+.flow{display:flex;flex-direction:column;gap:0;margin:0 0 14px}
+.flow-step{
+  display:flex;align-items:center;gap:10px;border:2px solid var(--navy);border-radius:12px;
+  padding:8px 10px;font-size:12.5px;font-weight:700;background:white;
+}
+body.dark .flow-step{background:#0f172a;border-color:#334155}
+.flow-step .n{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:10px;flex-shrink:0}
+body.dark .flow-step .n{background:#334155}
+.flow-arrow{text-align:center;font-size:14px;font-weight:900;opacity:.5;padding:2px 0}
+
+/* Section 03 tool cards */
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tool-card{border:2.5px solid var(--navy);border-radius:16px;padding:12px;background:white}
+body.dark .tool-card{background:#0f172a;border-color:#334155}
+.tool-card h5{margin:0 0 6px;font-size:13.5px;font-weight:900}
+.tool-card p{margin:0;font-size:11.5px;line-height:1.5;opacity:.85}
+.tool-card .badge{margin-bottom:6px}
+.ext-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.ext-card{border:2px dashed var(--navy);border-radius:14px;padding:9px 10px;background:transparent}
+body.dark .ext-card{border-color:#334155}
+.ext-card h6{margin:0 0 3px;font-size:12px;font-weight:800}
+.ext-card p{margin:0;font-size:10.5px;line-height:1.4;opacity:.8}
+details.not-core{border:2px solid var(--navy);border-radius:14px;padding:8px 12px;margin-top:2px}
+body.dark details.not-core{border-color:#334155}
+details.not-core summary{cursor:pointer;font-weight:800;font-size:12.5px;padding:4px 0}
+details.not-core .other-item{margin:8px 0;padding-top:8px;border-top:1px dashed var(--navy)}
+body.dark details.not-core .other-item{border-top-color:#334155}
+details.not-core .other-item h6{margin:0 0 3px;font-size:12px;font-weight:800}
+details.not-core .other-item p{margin:0;font-size:11px;line-height:1.5;opacity:.85}
+
+/* Section 04 evidence records */
+.ev-record{border:2px solid var(--navy);border-radius:14px;padding:10px 12px;margin-bottom:8px;background:white}
+body.dark .ev-record{background:#0f172a;border-color:#334155}
+.ev-record .ev-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ev-record .ev-id{font-weight:900;font-size:13px}
+.ev-hash{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;word-break:break-all;opacity:.75;line-height:1.5}
+.ev-record .ev-ts{font-size:10.5px;opacity:.7;font-weight:600}
+.evchain-diagram{display:flex;align-items:center;gap:6px;margin:10px 0 14px;flex-wrap:wrap}
+.evchain-box{border:2px solid var(--navy);border-radius:10px;padding:7px 10px;font-size:10.5px;font-weight:800;background:var(--yellow)}
+body.dark .evchain-box{background:#3a3318;border-color:#334155}
+.evchain-box.mid{background:var(--green)}
+body.dark .evchain-box.mid{background:#233323}
+.evchain-arrow{font-weight:900;opacity:.5}
+
+/* Section 05 viewer */
+.viewer-select{
+  width:100%;padding:9px 10px;border:2px solid var(--navy);border-radius:10px;font-family:inherit;
+  font-weight:800;font-size:12.5px;margin-bottom:12px;background:white;color:var(--navy);
+}
+body.dark .viewer-select{background:#0f172a;border-color:#334155;color:#e2e8f0}
+.viewer-cols{display:grid;grid-template-columns:1fr;gap:8px}
+.viewer-col{border:2px solid var(--navy);border-radius:12px;padding:9px 10px;background:white}
+body.dark .viewer-col{background:#0f172a;border-color:#334155}
+.viewer-col h6{margin:0 0 6px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;opacity:.7}
+.viewer-col .val{font-size:11px;line-height:1.5;word-break:break-all}
+.viewer-col .val.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px}
+.copy-btn{
+  margin-top:6px;border:1.5px solid var(--navy);border-radius:8px;background:transparent;
+  padding:4px 9px;font-size:10px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--navy);
+}
+body.dark .copy-btn{border-color:#334155;color:#e2e8f0}
+.copy-btn:hover{background:var(--navy);color:#fff}
+body.dark .copy-btn:hover{background:#334155}
+.copy-btn.copied{background:var(--green);border-color:var(--navy);color:var(--navy)}
+
+/* Section 06 limitations */
+.warn-box{
+  border:2.5px solid var(--warn-bd);border-radius:14px;background:#fffbeb;padding:12px 14px;margin-bottom:10px;
+}
+body.dark .warn-box{background:#2a2210;border-color:#b45309}
+.warn-box .warn-title{font-weight:900;font-size:12.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.warn-box ul{margin:0;padding-left:18px;font-size:12px;line-height:1.6}
+.warn-box ul li{margin:4px 0}
+
 @media(max-width:900px){
   #app{flex-direction:column;padding:84px 16px 90px}
   .card{flex:1 1 auto;width:100%;max-width:520px;margin:0 auto}
@@ -153,6 +231,7 @@ body.dark .icon{background:#0f172a;border-color:#334155}
   #city-bg{opacity:.85}
   #van-wrap{right:12px;bottom:8px;transform:scale(.85)}
   #topbar{top:10px;right:10px}
+  .tool-grid,.ext-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -195,25 +274,25 @@ body.dark .icon{background:#0f172a;border-color:#334155}
 <div id="app">
   <div class="hero">
     <p class="hero-kicker" data-en="welcome to" data-zh="歡迎來到">welcome to</p>
-    <h2>EVIDENCE</h2>
-    <h2>INGESTION</h2>
+    <h2 data-en="EVIDENCE-FIRST" data-zh="證據優先">EVIDENCE-FIRST</h2>
+    <h2 data-en="DOCUMENT INGESTION" data-zh="文件擷取系統">DOCUMENT INGESTION</h2>
     <div class="zh-block">
-      <h3 data-en="Evidence-First" data-zh="證據優先">Evidence-First</h3>
-      <h3 data-en="Ingestion System" data-zh="擷取系統" style="opacity:.6">Ingestion System</h3>
+      <h3 data-en="Preserve Original." data-zh="保留原始。">Preserve Original.</h3>
+      <h3 data-en="Trace Everything." data-zh="全程可追溯。" style="opacity:.6">Trace Everything.</h3>
       <p data-en="Pure static build. No React, no bundler. Works on GitHub Pages /docs even with Jekyll. Cartoon city is pure CSS divs." data-zh="純靜態建置，無 React、無打包器。即使在 Jekyll 下也能在 GitHub Pages /docs 運作。卡通城市為純 CSS div。">Pure static build. No React, no bundler. Works on GitHub Pages /docs even with Jekyll. Cartoon city is pure CSS divs.</p>
-      <p data-en="EDH style — bold, brutalist, evidence chain." data-zh="EDH 風格 — 粗體、野蠻主義、證據鏈。" style="margin-top:12px;font-weight:800;letter-spacing:.04em">EDH style — bold, brutalist, evidence chain.</p>
+      <p class="tagline" data-en="Original first. Derived second. Evidence always traceable." data-zh="先有原始，才有衍生。證據永遠可追溯。">Original first. Derived second. Evidence always traceable.</p>
     </div>
   </div>
 
   <div class="card">
     <div id="menu-list-view">
       <ul class="menu-list">
-        <li><button class="menu-row" data-target="detail-home"><span class="num">01</span><span class="label" data-en="Home / 首頁" data-zh="首頁 / Home">Home / 首頁</span><span class="arrow">→</span></button></li>
-        <li><button class="menu-row" data-target="detail-mark"><span class="num">02</span><span class="label" data-en="MarkItDown / 文件擷取" data-zh="文件擷取 / MarkItDown">MarkItDown / 文件擷取</span><span class="arrow">→</span></button></li>
-        <li><button class="menu-row" data-target="detail-crawl"><span class="num">03</span><span class="label" data-en="Crawl4AI / 網頁轉檔" data-zh="網頁轉檔 / Crawl4AI">Crawl4AI / 網頁轉檔</span><span class="arrow">→</span></button></li>
-        <li><button class="menu-row" data-target="detail-browser"><span class="num">04</span><span class="label" data-en="Browser Use / 瀏覽器自動化" data-zh="瀏覽器自動化 / Browser Use">Browser Use / 瀏覽器自動化</span><span class="arrow">→</span></button></li>
-        <li><button class="menu-row" data-target="detail-scrapy"><span class="num">05</span><span class="label" data-en="Scrapy Stack / 大量爬蟲" data-zh="大量爬蟲 / Scrapy Stack">Scrapy Stack / 大量爬蟲</span><span class="arrow">→</span></button></li>
-        <li><button class="menu-row" data-target="detail-evidence"><span class="num">06</span><span class="label" data-en="Evidence / 證據鏈" data-zh="證據鏈 / Evidence">Evidence / 證據鏈</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-why"><span class="num">01</span><span class="label" data-en="WHY / 為什麼" data-zh="為什麼 / WHY">WHY / 為什麼</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-pipeline"><span class="num">02</span><span class="label" data-en="PIPELINE / 流程" data-zh="流程 / PIPELINE">PIPELINE / 流程</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-tools"><span class="num">03</span><span class="label" data-en="CORE TOOLS / 核心工具" data-zh="核心工具 / CORE TOOLS">CORE TOOLS / 核心工具</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-evidence"><span class="num">04</span><span class="label" data-en="EVIDENCE CHAIN / 證據鏈" data-zh="證據鏈 / EVIDENCE CHAIN">EVIDENCE CHAIN / 證據鏈</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-viewer"><span class="num">05</span><span class="label" data-en="VIEWER / 檢視器" data-zh="檢視器 / VIEWER">VIEWER / 檢視器</span><span class="arrow">→</span></button></li>
+        <li><button class="menu-row" data-target="detail-limitations"><span class="num">06</span><span class="label" data-en="LIMITATIONS / 限制" data-zh="限制 / LIMITATIONS">LIMITATIONS / 限制</span><span class="arrow">→</span></button></li>
       </ul>
       <div class="card-footer">
         <div class="footer-row">
@@ -227,64 +306,152 @@ body.dark .icon{background:#0f172a;border-color:#334155}
     </div>
 
     <div id="detail-view">
-      <div id="detail-home" class="detail active">
-        <h4 data-en="Home" data-zh="首頁">Home</h4>
-        <div class="meta"><span class="badge">PURE HTML</span><span class="badge">NO REACT</span><span class="badge">GH PAGES</span></div>
-        <p data-en="This fixes the white screen: previous build used React + import maps + esm.sh which fails on GitHub Pages with Jekyll. This file is vanilla HTML/CSS/JS single file <200KB." data-zh="此版本修復白畫面：先前使用 React + import maps + esm.sh，在 GitHub Pages + Jekyll 環境下會失效。此檔為純 HTML/CSS/JS 單檔 <200KB。">This fixes the white screen: previous build used React + import maps + esm.sh which fails on GitHub Pages with Jekyll. This file is vanilla HTML/CSS/JS single file &lt;200KB.</p>
-        <p data-en="Use as docs/index.html with source /docs. No build step." data-zh="直接作為 docs/index.html 使用，來源設為 /docs，無需建置步驟。">Use as docs/index.html with source /docs. No build step.</p>
-      </div>
 
-      <div id="detail-mark" class="detail">
-        <h4 data-en="MarkItDown / 文件擷取" data-zh="文件擷取 / MarkItDown">MarkItDown / 文件擷取</h4>
-        <div class="meta"><span class="badge">MIT</span><span class="badge">~122k stars</span><span class="badge">LLM Ready</span></div>
-        <p data-en="Microsoft MarkItDown: converts Office, PDF, images, audio into clean Markdown structure optimized for LLM ingestion. Keeps headings, tables, lists. MIT license, ~122k stars." data-zh="微軟 MarkItDown：將 Office、PDF、圖片、音訊轉為乾淨的 Markdown 結構，專為 LLM 擷取最佳化，保留標題、表格、清單。MIT 授權，約 122k stars。">Microsoft MarkItDown: converts Office, PDF, images, audio into clean Markdown structure optimized for LLM ingestion. Keeps headings, tables, lists. MIT license, ~122k stars.</p>
+      <!-- 01 WHY -->
+      <div id="detail-why" class="detail active">
+        <h4 data-en="WHY / 為什麼" data-zh="為什麼 / WHY">WHY / 為什麼</h4>
+        <div class="meta"><span class="badge">EVIDENCE-FIRST</span></div>
+        <p data-en="Any tool can summarize a page. Almost none can prove what the page actually said. This system treats the original capture as ground truth, and every transformation as a derived, hash-linked copy — so a claim can always be traced back to its source." data-zh="任何工具都能摘要網頁，但很少能證明網頁當時真正寫了什麼。本系統將原始擷取視為真相依據，每次轉換都是可雜湊追溯的衍生版本，讓任何主張都能回溯至來源。">Any tool can summarize a page. Almost none can prove what the page actually said. This system treats the original capture as ground truth, and every transformation as a derived, hash-linked copy — so a claim can always be traced back to its source.</p>
         <ul>
-          <li data-en="Input: docx, xlsx, pptx, pdf, jpg, mp3, html" data-zh="輸入：docx、xlsx、pptx、pdf、jpg、mp3、html">Input: docx, xlsx, pptx, pdf, jpg, mp3, html</li>
-          <li data-en="Output: structured Markdown for LLM context" data-zh="輸出：結構化 Markdown 供 LLM 上下文">Output: structured Markdown for LLM context</li>
-          <li data-en="Use for evidence: preserve original structure" data-zh="用於證據：保留原始結構">Use for evidence: preserve original structure</li>
+          <li data-en="Original bytes are captured and hashed before any conversion" data-zh="原始位元組在任何轉換前先擷取並雜湊">Original bytes are captured and hashed before any conversion</li>
+          <li data-en="Derived output (markdown, text) is hashed separately and linked to the original" data-zh="衍生輸出（Markdown、文字）另行雜湊並連結回原始">Derived output (markdown, text) is hashed separately and linked to the original</li>
+          <li data-en="Every record carries a source URL and capture timestamp" data-zh="每筆紀錄皆附來源 URL 與擷取時間戳">Every record carries a source URL and capture timestamp</li>
         </ul>
       </div>
 
-      <div id="detail-crawl" class="detail">
-        <h4 data-en="Crawl4AI / 網頁轉檔" data-zh="網頁轉檔 / Crawl4AI">Crawl4AI / 網頁轉檔</h4>
-        <div class="meta"><span class="badge">Apache-2.0</span><span class="badge">~83.4k stars</span><span class="badge">Firecrawl: AGPL-3.0 core / MIT SDK ~166k</span></div>
-        <p data-en="Crawl4AI: open-source LLM-friendly crawler, Apache-2.0, ~83.4k stars. Async, markdown output, JS rendering, chunking." data-zh="Crawl4AI：開源 LLM 友善爬蟲，Apache-2.0，約 83.4k stars。非同步、Markdown 輸出、JS 渲染、分塊。">Crawl4AI: open-source LLM-friendly crawler, Apache-2.0, ~83.4k stars. Async, markdown output, JS rendering, chunking.</p>
-        <p data-en="Firecrawl: alternative, AGPL-3.0 for core service, MIT for SDKs, ~166k stars. Cloud + self-host, handles anti-bot." data-zh="Firecrawl：替代方案，核心服務 AGPL-3.0、SDK 為 MIT，約 166k stars。雲端 + 自架，處理反爬蟲。">Firecrawl: alternative, AGPL-3.0 for core service, MIT for SDKs, ~166k stars. Cloud + self-host, handles anti-bot.</p>
-        <ul>
-          <li data-en="Best for: single-page to markdown evidence" data-zh="適用：單頁轉 Markdown 證據">Best for: single-page to markdown evidence</li>
-          <li data-en="Compare: Crawl4AI self-host first, Firecrawl managed first" data-zh="比較：Crawl4AI 以自架優先，Firecrawl 以託管優先">Compare: Crawl4AI self-host first, Firecrawl managed first</li>
-        </ul>
+      <!-- 02 PIPELINE -->
+      <div id="detail-pipeline" class="detail">
+        <h4 data-en="PIPELINE / 流程" data-zh="流程 / PIPELINE">PIPELINE / 流程</h4>
+        <div class="meta"><span class="badge">6 STEPS</span></div>
+        <div class="flow">
+          <div class="flow-step"><span class="n">1</span><span data-en="Fetch original (MarkItDown / Crawl4AI / Browser Use)" data-zh="擷取原始內容（MarkItDown / Crawl4AI / Browser Use）">Fetch original (MarkItDown / Crawl4AI / Browser Use)</span></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="n">2</span><span data-en="Hash original bytes (SHA-256)" data-zh="對原始位元組雜湊（SHA-256）">Hash original bytes (SHA-256)</span></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="n">3</span><span data-en="Convert to derived Markdown" data-zh="轉換為衍生 Markdown">Convert to derived Markdown</span></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="n">4</span><span data-en="Hash derived output (SHA-256)" data-zh="對衍生輸出雜湊（SHA-256）">Hash derived output (SHA-256)</span></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="n">5</span><span data-en="Write evidence record (source, timestamp, both hashes)" data-zh="寫入證據紀錄（來源、時間戳、兩組雜湊）">Write evidence record (source, timestamp, both hashes)</span></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="n">6</span><span data-en="Store under /docs/evidence with an index" data-zh="儲存於 /docs/evidence 並建立索引">Store under /docs/evidence with an index</span></div>
+        </div>
       </div>
 
-      <div id="detail-browser" class="detail">
-        <h4 data-en="Browser Use / 瀏覽器自動化" data-zh="瀏覽器自動化 / Browser Use">Browser Use / 瀏覽器自動化</h4>
-        <div class="meta"><span class="badge">MIT</span><span class="badge">~112k stars</span><span class="badge">Agent</span></div>
-        <p data-en="Browser Use: MIT ~112k stars. LLM agent that controls browser to click, fill, navigate, extract. Connects vision + DOM." data-zh="Browser Use：MIT 約 112k stars。LLM 代理控制瀏覽器點擊、填寫、導航、擷取，結合視覺與 DOM。">Browser Use: MIT ~112k stars. LLM agent that controls browser to click, fill, navigate, extract. Connects vision + DOM.</p>
-        <ul>
-          <li data-en="Use when login, pagination, interaction needed" data-zh="適用於需要登入、分頁、互動的場景">Use when login, pagination, interaction needed</li>
-          <li data-en="Produces trace + screenshots as evidence" data-zh="產生軌跡與截圖作為證據">Produces trace + screenshots as evidence</li>
-        </ul>
+      <!-- 03 CORE TOOLS -->
+      <div id="detail-tools" class="detail">
+        <h4 data-en="CORE TOOLS / 核心工具" data-zh="核心工具 / CORE TOOLS">CORE TOOLS / 核心工具</h4>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <span class="badge ok">MIT</span>
+            <h5>MarkItDown</h5>
+            <p data-en="Converts Office, PDF, images, audio into clean Markdown structure optimized for LLM ingestion. Keeps headings, tables, lists." data-zh="將 Office、PDF、圖片、音訊轉為乾淨的 Markdown 結構，專為 LLM 擷取最佳化，保留標題、表格、清單。">Converts Office, PDF, images, audio into clean Markdown structure optimized for LLM ingestion. Keeps headings, tables, lists.</p>
+          </div>
+          <div class="tool-card">
+            <span class="badge ok">Apache-2.0</span>
+            <h5>Crawl4AI</h5>
+            <p data-en="Open-source LLM-friendly crawler. Async, markdown output, JS rendering, chunking." data-zh="開源 LLM 友善爬蟲。非同步、Markdown 輸出、JS 渲染、分塊。">Open-source LLM-friendly crawler. Async, markdown output, JS rendering, chunking.</p>
+          </div>
+        </div>
+        <div class="ext-grid">
+          <div class="ext-card">
+            <h6 data-en="Browser Use · extension" data-zh="Browser Use · 擴充">Browser Use · extension</h6>
+            <p data-en="MIT. LLM agent that clicks, fills, navigates, extracts. Use when login/pagination needed." data-zh="MIT。LLM 代理點擊、填寫、導航、擷取。適用於需登入或分頁的場景。">MIT. LLM agent that clicks, fills, navigates, extracts. Use when login/pagination needed.</p>
+          </div>
+          <div class="ext-card">
+            <h6 data-en="Scrapling · extension" data-zh="Scrapling · 擴充">Scrapling · extension</h6>
+            <p data-en="BSD-3-Clause. Modern Scrapy alternative with better anti-bot handling, for scale." data-zh="BSD-3-Clause。現代 Scrapy 替代方案，抗反爬更強，適合規模化。">BSD-3-Clause. Modern Scrapy alternative with better anti-bot handling, for scale.</p>
+          </div>
+        </div>
+        <details class="not-core">
+          <summary data-en="Not Core — additional tools" data-zh="非核心 — 其他工具">Not Core — additional tools</summary>
+          <div class="other-item">
+            <h6>scrcpy</h6>
+            <p data-en="Android screen mirroring. Not a crawler — useful for capturing mobile app evidence." data-zh="Android 投屏工具，非爬蟲，可用於行動裝置 App 證據擷取。">Android screen mirroring. Not a crawler — useful for capturing mobile app evidence.</p>
+          </div>
+          <div class="other-item">
+            <h6>curl-impersonate</h6>
+            <p data-en="Mimics real browser TLS/HTTP fingerprints to reduce anti-bot blocking during fetch." data-zh="模擬真實瀏覽器的 TLS/HTTP 指紋，降低擷取時被反爬機制阻擋的機率。">Mimics real browser TLS/HTTP fingerprints to reduce anti-bot blocking during fetch.</p>
+          </div>
+          <div class="other-item">
+            <h6>AutoScraper</h6>
+            <p data-en="Learns extraction rules from a handful of labeled examples." data-zh="從少量標註範例中學習擷取規則。">Learns extraction rules from a handful of labeled examples.</p>
+          </div>
+          <div class="other-item">
+            <h6>Firecrawl</h6>
+            <p data-en="Alternative crawler. AGPL-3.0 core service, MIT SDKs. Cloud or self-host." data-zh="替代爬蟲方案。核心服務為 AGPL-3.0，SDK 為 MIT。可雲端或自架。">Alternative crawler. AGPL-3.0 core service, MIT SDKs. Cloud or self-host.</p>
+          </div>
+        </details>
       </div>
 
-      <div id="detail-scrapy" class="detail">
-        <h4 data-en="Scrapy Stack / 大量爬蟲" data-zh="大量爬蟲 / Scrapy Stack">Scrapy Stack / 大量爬蟲</h4>
-        <div class="meta"><span class="badge">Scrapling BSD-3-Clause</span><span class="badge">scrcpy ~149.9k</span><span class="badge">TLS Fingerprint</span></div>
-        <p data-en="For scale: Scrapling (BSD-3-Clause) – modern Scrapy alternative with better anti-bot handling. scrcpy (~149.9k stars) is Android screen mirroring for mobile evidence, not crawler but useful for app capture. curl-impersonate spoofs real browser TLS fingerprints to bypass WAF. AutoScraper learns rules from examples." data-zh="規模化：Scrapling（BSD-3-Clause）為現代 Scrapy 替代，抗反爬更強。scrcpy（約149.9k stars）為 Android 投屏，用於行動裝置證據，非爬蟲但可用於 App 擷取。curl-impersonate 偽造真實瀏覽器 TLS 指紋以繞過 WAF。AutoScraper 從範例學習規則。">For scale: Scrapling (BSD-3-Clause) – modern Scrapy alternative with better anti-bot handling. scrcpy (~149.9k stars) is Android screen mirroring for mobile evidence, not crawler but useful for app capture. curl-impersonate spoofs real browser TLS fingerprints to bypass WAF. AutoScraper learns rules from examples.</p>
-        <ul>
-          <li data-en="Scrapling: light, undetected, sync/async" data-zh="Scrapling：輕量、難偵測、同步/非同步">Scrapling: light, undetected, sync/async</li>
-          <li data-en="curl-impersonate: solves TLS fingerprint blocks" data-zh="curl-impersonate：解決 TLS 指紋封鎖">curl-impersonate: solves TLS fingerprint blocks</li>
-          <li data-en="AutoScraper: ML rule learning from sample" data-zh="AutoScraper：從範例機器學習規則">AutoScraper: ML rule learning from sample</li>
-        </ul>
-      </div>
-
+      <!-- 04 EVIDENCE CHAIN -->
       <div id="detail-evidence" class="detail">
-        <h4 data-en="Evidence / 證據鏈" data-zh="證據鏈 / Evidence">Evidence / 證據鏈</h4>
-        <div class="meta"><span class="badge">Chain</span><span class="badge">Hash</span><span class="badge">Bilingual</span></div>
-        <p data-en="Evidence chain: source URL + timestamp + raw hash + markdown + screenshot. All steps logged. Output bilingual for audit." data-zh="證據鏈：來源 URL + 時間戳 + 原始雜湊 + Markdown + 截圖，全部記錄，雙語輸出以供稽核。">Evidence chain: source URL + timestamp + raw hash + markdown + screenshot. All steps logged. Output bilingual for audit.</p>
-        <ul>
-          <li data-en="Keep original + transformed" data-zh="保留原始與轉換後">Keep original + transformed</li>
-          <li data-en="Store in /docs/evidence with index" data-zh="儲存於 /docs/evidence 並建立索引">Store in /docs/evidence with index</li>
-        </ul>
+        <h4 data-en="EVIDENCE CHAIN / 證據鏈" data-zh="證據鏈 / EVIDENCE CHAIN">EVIDENCE CHAIN / 證據鏈</h4>
+        <div class="meta"><span class="badge">3 RECORDS</span><span class="badge">EXAMPLE DATA</span></div>
+        <div class="evchain-diagram">
+          <div class="evchain-box" data-en="ORIGINAL" data-zh="原始">ORIGINAL</div>
+          <span class="evchain-arrow">→</span>
+          <div class="evchain-box mid" data-en="DERIVED" data-zh="衍生">DERIVED</div>
+          <span class="evchain-arrow">→</span>
+          <div class="evchain-box" data-en="EVIDENCE RECORD" data-zh="證據紀錄">EVIDENCE RECORD</div>
+        </div>
+        <div class="ev-record">
+          <div class="ev-head"><span class="ev-id">EV-0001</span><span class="badge ok" data-en="VERIFIED" data-zh="已驗證">VERIFIED</span></div>
+          <div class="ev-ts">2026-03-14T09:22:03Z</div>
+          <div class="ev-hash">sha256: 3f8a9c2e1b7d4f6a0e5c8b3d2a1f9e7c6b5a4d3e2f1c0b9a8d7e6f5c4b3a2d1e</div>
+        </div>
+        <div class="ev-record">
+          <div class="ev-head"><span class="ev-id">EV-0002</span><span class="badge ok" data-en="VERIFIED" data-zh="已驗證">VERIFIED</span></div>
+          <div class="ev-ts">2026-04-02T15:47:11Z</div>
+          <div class="ev-hash">sha256: 7c2d5e8f1a4b6c9d0e3f2a1b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d</div>
+        </div>
+        <div class="ev-record">
+          <div class="ev-head"><span class="ev-id">EV-0003</span><span class="badge ok" data-en="VERIFIED" data-zh="已驗證">VERIFIED</span></div>
+          <div class="ev-ts">2026-05-19T11:03:47Z</div>
+          <div class="ev-hash">sha256: 1f0e9d8c7b6a5948372615049f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6</div>
+        </div>
+      </div>
+
+      <!-- 05 VIEWER -->
+      <div id="detail-viewer" class="detail">
+        <h4 data-en="VIEWER / 檢視器" data-zh="檢視器 / VIEWER">VIEWER / 檢視器</h4>
+        <div class="meta"><span class="badge">INTERACTIVE</span><span class="badge">EXAMPLE DATA</span></div>
+        <select class="viewer-select" id="ev-select">
+          <option value="0">EV-0001</option>
+          <option value="1">EV-0002</option>
+          <option value="2">EV-0003</option>
+        </select>
+        <div class="viewer-cols">
+          <div class="viewer-col">
+            <h6 data-en="Source" data-zh="來源">Source</h6>
+            <div class="val" id="ev-source"></div>
+          </div>
+          <div class="viewer-col">
+            <h6 data-en="Original SHA-256" data-zh="原始 SHA-256">Original SHA-256</h6>
+            <div class="val mono" id="ev-hash-orig"></div>
+            <button class="copy-btn" data-copy-target="ev-hash-orig" data-en="COPY" data-zh="複製">COPY</button>
+          </div>
+          <div class="viewer-col">
+            <h6 data-en="Derived SHA-256" data-zh="衍生 SHA-256">Derived SHA-256</h6>
+            <div class="val mono" id="ev-hash-derived"></div>
+            <button class="copy-btn" data-copy-target="ev-hash-derived" data-en="COPY" data-zh="複製">COPY</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 LIMITATIONS -->
+      <div id="detail-limitations" class="detail">
+        <h4 data-en="LIMITATIONS / 限制" data-zh="限制 / LIMITATIONS">LIMITATIONS / 限制</h4>
+        <div class="warn-box">
+          <div class="warn-title" data-en="⚠ Read before treating output as legal evidence" data-zh="⚠ 在將輸出作為法律證據前請先閱讀">⚠ Read before treating output as legal evidence</div>
+          <ul>
+            <li data-en="A hash proves the captured bytes were not altered after capture — it does not prove the source content was accurate, authentic, or unedited before capture." data-zh="雜湊值只能證明擷取後的位元組未被竄改，無法證明來源內容在擷取前是否正確、真實或未經編輯。">A hash proves the captured bytes were not altered after capture — it does not prove the source content was accurate, authentic, or unedited before capture.</li>
+            <li data-en="Timestamps come from the local system clock, not a trusted timestamping authority." data-zh="時間戳來自本機系統時鐘，並非經可信時間戳機構認證。">Timestamps come from the local system clock, not a trusted timestamping authority.</li>
+            <li data-en="This system is not a substitute for a formal legal chain-of-custody process." data-zh="本系統無法取代正式的法律證據保管鏈流程。">This system is not a substitute for a formal legal chain-of-custody process.</li>
+            <li data-en="Rendered pages (JS-heavy sites) may differ across browsers, devices, or time — capture what you can, and record how it was captured." data-zh="動態渲染頁面可能因瀏覽器、裝置或時間而不同，請盡可能記錄擷取當下的方式。">Rendered pages (JS-heavy sites) may differ across browsers, devices, or time — capture what you can, and record how it was captured.</li>
+            <li data-en="Evidence records shown in this demo (EV-0001 to EV-0003) are example data, not real captures." data-zh="本示範所示證據紀錄（EV-0001 至 EV-0003）為範例資料，非真實擷取。">Evidence records shown in this demo (EV-0001 to EV-0003) are example data, not real captures.</li>
+          </ul>
+        </div>
       </div>
 
       <button id="back-btn"><span data-en="← BACK" data-zh="← 返回">← BACK</span></button>
@@ -303,8 +470,23 @@ body.dark .icon{background:#0f172a;border-color:#334155}
 <script>
 (function(){
   var LS_LANG='lang', LS_THEME='theme';
-  var lang = localStorage.getItem(LS_LANG) || 'en';
-  var theme = localStorage.getItem(LS_THEME) || 'light';
+  function safeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function safeSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  var lang = safeGet(LS_LANG) || 'en';
+  var theme = safeGet(LS_THEME) || 'light';
+
+  var records = [
+    {id:'EV-0001', source:'https://example.gov/notice/2026-0091', ts:'2026-03-14T09:22:03Z',
+     hashOrig:'3f8a9c2e1b7d4f6a0e5c8b3d2a1f9e7c6b5a4d3e2f1c0b9a8d7e6f5c4b3a2d1e',
+     hashDerived:'9b1e4f6a3c8d2e7b0f5a4c3d2e1f0b9a8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f'},
+    {id:'EV-0002', source:'https://news.example.org/article/882931', ts:'2026-04-02T15:47:11Z',
+     hashOrig:'7c2d5e8f1a4b6c9d0e3f2a1b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d',
+     hashDerived:'4a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b'},
+    {id:'EV-0003', source:'https://docs.example.com/report.pdf', ts:'2026-05-19T11:03:47Z',
+     hashOrig:'1f0e9d8c7b6a5948372615049f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6',
+     hashDerived:'5e4d3c2b1a0f9e8d7c6b5a4938271605f4e3d2c1b0a9f8e7d6c5b4a39281706'}
+  ];
+
   function applyLang(){
     document.querySelectorAll('[data-en]').forEach(function(el){
       var en = el.getAttribute('data-en');
@@ -323,14 +505,24 @@ body.dark .icon{background:#0f172a;border-color:#334155}
     else document.body.classList.remove('dark');
     var btn=document.getElementById('theme-btn');
     if(btn) btn.textContent = theme==='dark' ? '☀️' : '🌙';
-    localStorage.setItem(LS_THEME, theme);
+    safeSet(LS_THEME, theme);
   }
-  applyLang(); applyTheme();
-  document.getElementById('lang-zh').addEventListener('click', function(){ lang='zh'; localStorage.setItem(LS_LANG,lang); applyLang(); });
-  document.getElementById('lang-en').addEventListener('click', function(){ lang='en'; localStorage.setItem(LS_LANG,lang); applyLang(); });
+  function renderRecord(){
+    var i = parseInt(document.getElementById('ev-select').value, 10);
+    var r = records[i];
+    document.getElementById('ev-source').textContent = r.source;
+    document.getElementById('ev-hash-orig').textContent = r.hashOrig;
+    document.getElementById('ev-hash-derived').textContent = r.hashDerived;
+  }
+
+  applyLang(); applyTheme(); renderRecord();
+
+  document.getElementById('lang-zh').addEventListener('click', function(){ lang='zh'; safeSet(LS_LANG,lang); applyLang(); });
+  document.getElementById('lang-en').addEventListener('click', function(){ lang='en'; safeSet(LS_LANG,lang); applyLang(); });
   document.getElementById('theme-btn').addEventListener('click', function(){
     theme = theme==='dark' ? 'light' : 'dark'; applyTheme();
   });
+
   var listView=document.getElementById('menu-list-view');
   var detailView=document.getElementById('detail-view');
   var details=document.querySelectorAll('.detail');
@@ -344,6 +536,32 @@ body.dark .icon{background:#0f172a;border-color:#334155}
   });
   document.getElementById('back-btn').addEventListener('click', function(){
     detailView.style.display='none'; listView.style.display='block';
+  });
+
+  document.getElementById('ev-select').addEventListener('change', renderRecord);
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var targetId = btn.getAttribute('data-copy-target');
+      var text = document.getElementById(targetId).textContent;
+      function flash(){
+        var original = btn.textContent;
+        btn.classList.add('copied');
+        btn.textContent = lang==='zh' ? '已複製' : 'COPIED';
+        setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = original; }, 1200);
+      }
+      function fallbackCopy(){
+        var ta=document.createElement('textarea');
+        ta.value=text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); flash(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(flash).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    });
   });
 })();
 </script>
