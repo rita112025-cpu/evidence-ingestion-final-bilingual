@@ -1,0 +1,5 @@
+markitdown[all]>=0.1.0
+crawl4ai>=0.9.0
+browser-use>=0.1.40
+scrapy>=2.11
+python-dotenv
