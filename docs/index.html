@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Evidence-First Document Ingestion</title>
+<title>Evidence-First Document Ingestion - Final</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;font-family:'Inter','Noto Sans TC',system-ui,sans-serif}
-body{margin:0;background:#f6f5ef;color:#0f1e3a;transition:.2s}
+body{margin:0;background:#f6f5ef;color:#0f1e3a;transition:.2s;line-height:1.6}
 body.dark{background:#0f1221;color:#e2e8f0}
 .topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:rgba(246,245,239,.9);backdrop-filter:blur(6px);border-bottom:3px solid #0f1e3a}
 body.dark .topbar{background:rgba(15,18,33,.9);border-color:#334155}
@@ -29,14 +29,13 @@ body.dark .card{background:#1e293b;border-color:#334155;box-shadow:8px 8px 0 #33
 .menu{list-style:none;padding:0;margin:0}
 .menu li{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:2px solid #e5e7eb;cursor:pointer}
 body.dark .menu li{border-color:#334155}
-.menu li:hover{background:#f6f5ef}
-body.dark .menu li:hover{background:#0f1221}
+.menu li:hover{background:#f6f5ef} body.dark .menu li:hover{background:#0f1221}
 .num{font-weight:900;opacity:.5;margin-right:12px}
 .arrow{width:32px;height:32px;border-radius:50%;background:#0f1e3a;color:#fff;display:grid;place-items:center;font-weight:900}
 body.dark .arrow{background:#fff;color:#0f1e3a}
 .section{max-width:1200px;margin:40px auto;padding:0 24px}
 .diagram{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:20px 0}
-.box{border:3px solid #0f1e3a;border-radius:16px;padding:14px 16px;background:#fff;min-width:200px}
+.box{border:3px solid #0f1e3a;border-radius:16px;padding:14px 16px;background:#fff;min-width:200px;flex:1}
 body.dark .box{background:#1e293b;border-color:#475569;color:#fff}
 .ar{font-weight:900;font-size:20px}
 .viewer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
@@ -45,15 +44,15 @@ body.dark .box{background:#1e293b;border-color:#475569;color:#fff}
 body.dark .panel{background:#0f1221;border-color:#334155}
 .limit{border:3px solid #eab308;background:#fefce8;padding:16px;border-radius:16px}
 body.dark .limit{background:#422006;border-color:#eab308}
-table{width:100%;border-collapse:collapse}
-th,td{border:2px solid #0f1e3a;padding:8px;text-align:left;word-break:break-all}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:2px solid #0f1e3a;padding:8px;text-align:left;word-break:break-all;vertical-align:top}
 body.dark th,body.dark td{border-color:#334155}
 a{color:#0f1e3a;font-weight:800} body.dark a{color:#fde68a}
-.btn{border:3px solid #0f1e3a;background:#0f1e3a;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:900;margin:2px}
+.btn{border:3px solid #0f1e3a;background:#0f1e3a;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:900;margin:2px;font-size:12px}
 body.dark .btn{background:#fff;color:#0f1e3a}
-#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0f1e3a;color:#fff;padding:10px 18px;border-radius:10px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-body.dark #toast{background:#fde68a;color:#0f1e3a}
+small{opacity:.7;font-size:12px}
+.mono{font-family:monospace;font-size:13px;background:#f3f4f6;padding:2px 6px;border-radius:4px}
+body.dark .mono{background:#0f1221}
 </style>
 </head>
 <body>
@@ -64,6 +63,7 @@ body.dark #toast{background:#fde68a;color:#0f1e3a}
 <button class="pill" id="themeBtn">🌙 / ☀️</button>
 </div>
 </div>
+
 <div class="hero">
 <div>
 <div class="h-title"><span data-zh="證據優先的" data-en="Evidence-First">Evidence-First</span><br><span data-zh="文件擷取系統" data-en="Document Ingestion">Document Ingestion</span></div>
@@ -76,25 +76,27 @@ body.dark #toast{background:#fde68a;color:#0f1e3a}
 <div class="city" id="city"></div>
 <div class="section" style="padding:0">
 <div class="diagram">
-<div class="box"><b>ORIGINAL SOURCE</b><br><span data-zh="原始檔案" data-en="report.pdf">report.pdf</span><br>SHA-256: 8f4a...</div>
-<div class="ar">→</div>
-<div class="box"><b>DERIVED ARTIFACT</b><br>report.md<br><span data-zh="衍生資料" data-en="Markdown derived">Markdown derived</span></div>
-<div class="ar">→</div>
-<div class="box"><b>EVIDENCE RECORD</b><br>EV-0001<br>VERIFIED</div>
+<div class="box"><b>SOURCE HASH</b><br><span class="mono">report.pdf / AAA...</span><br><small data-zh="原始檔案完整性" data-en="Original integrity">Original integrity</small></div>
+<div class="ar">↓<br><small>TRANSFORM</small></div>
+<div class="box"><b>TRANSFORMATION RECORD</b><br>Tool: MarkItDown<br>Version: 0.1.2<br>Time: 2026-09-21T10:32:11Z</div>
+<div class="ar">↓</div>
+<div class="box"><b>DERIVED HASH</b><br><span class="mono">report.md / BBB...</span><br><small data-zh="衍生檔案完整性" data-en="Derived integrity">Derived integrity</small></div>
 </div>
 </div>
 </div>
 <div>
 <div class="card">
 <ul class="menu" id="menu"></ul>
-<div style="margin-top:16px;font-size:12px;opacity:.6">Evidence-First • Vanilla JS • No React • GitHub Pages /docs</div>
+<div style="margin-top:16px;font-size:11px;opacity:.6">Evidence-First • Vanilla JS 19KB • No React • GitHub Pages /docs • Final Baseline</div>
 </div>
 </div>
 </div>
+
 <div class="section" id="sec-why">
 <h2>01 <span data-zh="為何證據優先" data-en="WHY EVIDENCE-FIRST">WHY EVIDENCE-FIRST</span></h2>
 <p data-zh="轉換不會取代證據。Markdown 是為了讓 LLM 處理的衍生層，原始檔案永遠是唯一的事實來源。Hash 只能證明你現在保存的檔案與擷取當下的檔案一致，不能證明來源本身為真。" data-en="Transformation does not replace evidence. Markdown is a derived layer for downstream processing. The original file remains the sole source of truth. A hash verifies integrity at capture time, not truthfulness.">Transformation does not replace evidence.</p>
 </div>
+
 <div class="section" id="sec-pipeline">
 <h2>02 <span data-zh="擷取流程" data-en="INGESTION PIPELINE">INGESTION PIPELINE</span></h2>
 <div class="diagram">
@@ -103,78 +105,95 @@ body.dark #toast{background:#fde68a;color:#0f1e3a}
 <div class="box">Interactive<br>→ Browser Use</div>
 <div class="box">Future batch<br>→ Scrapy / Crawlee</div>
 </div>
+<p>SOURCE → INGEST → DERIVED ARTIFACT → EVIDENCE RECORD → TRACE / VERIFY</p>
 </div>
+
 <div class="section" id="sec-core">
 <h2>03 <span data-zh="核心工具" data-en="CORE TOOLS">CORE TOOLS</span></h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-<div class="box"><b>MarkItDown</b><br>License: MIT<br>Role: Local doc extraction<br>Output: Markdown<br><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></div>
-<div class="box"><b>Crawl4AI</b><br>License: Apache-2.0<br>Role: Web page → Markdown<br><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></div>
+<div class="box"><b>MarkItDown</b><br><span data-zh="授權：MIT（僅主專案）；選用依賴可能為不同授權" data-en="License: MIT (core project only; optional dependencies may carry different licenses)">License: MIT (core project only; optional dependencies may carry different licenses)</span><br><small data-zh="注意：OCR 額外功能曾牽涉 PyMuPDF / AGPL 等依賴，完整環境需另行核對" data-en="Note: OCR extras previously involved PyMuPDF / AGPL etc. Check full env separately.">Note: OCR extras previously involved PyMuPDF / AGPL</small><br>Role: Local doc extraction<br>Output: Markdown<br><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></div>
+<div class="box"><b>Crawl4AI</b><br><span data-zh="授權：Apache-2.0；專案另列署名要求，重新散布或商業使用前應再核對目前 LICENSE / README" data-en="License: Apache-2.0; project also specifies attribution requirements — check current LICENSE/README before redistribution">License: Apache-2.0; project also specifies attribution requirements — check current LICENSE/README before redistribution</span><br><small>Official README: Apache License 2.0 + attribution clause in changelog</small><br>Role: Web page → Markdown<br><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></div>
 <div class="box"><b>Browser Use</b> (Extension)<br>License: MIT<br><a href="https://github.com/browser-use/browser-use" target="_blank">browser-use/browser-use</a></div>
 <div class="box"><b>Scrapy</b> (Extension)<br>License: BSD-3-Clause<br><a href="https://github.com/scrapy/scrapy" target="_blank">scrapy/scrapy</a></div>
 </div>
-<details style="margin-top:12px"><summary><b>Reference / Not Core (原始10個中的其他6個)</b></summary>
-<ul>
-<li><a href="https://github.com/mendableai/firecrawl" target="_blank">Firecrawl</a> - AGPL-3.0 core, MIT SDK</li>
-<li><a href="https://github.com/D4Vinci/Scrapling" target="_blank">Scrapling</a> - BSD-3-Clause</li>
-<li><a href="https://github.com/Genymobile/scrcpy" target="_blank">scrcpy</a> - Apache-2.0 / Android mirroring</li>
-<li><a href="https://github.com/lwthiker/curl-impersonate" target="_blank">curl-impersonate</a> - MIT - Network compatibility only where permitted</li>
-<li><a href="https://github.com/alirezamika/autoscraper" target="_blank">AutoScraper</a> - MIT</li>
-<li><a href="https://github.com/apify/crawlee" target="_blank">Crawlee</a> - Apache-2.0</li>
-</ul>
-</details>
 </div>
+
 <div class="section" id="sec-chain">
 <h2>04 <span data-zh="證據鏈" data-en="EVIDENCE CHAIN">EVIDENCE CHAIN</span></h2>
-<div class="box" style="font-family:monospace">
-EV-0001<br>Source: report.pdf<br>SHA-256: 8f4a3c9e1b2d...a1f9<br>Captured: 2026-09-21T10:32:11Z<br>Tool: MarkItDown<br>Derived: report.md<br>Status: VERIFIED<br>
-<button class="btn" onclick="fallbackCopy('8f4a3c9e1b2d')">Copy Hash</button>
+<p data-zh="每個證據都應包含完整路徑、工具版本、衍生雜湊，避免同名檔案混淆。" data-en="Each record must include full path, tool version, and derived hash to avoid same-name collisions.">Each record must include full path, tool version, derived hash.</p>
+<div class="box" style="font-family:monospace;line-height:1.8">
+<b>Evidence ID:</b> EV-0001<br>
+<b>Source Name:</b> report.pdf<br>
+<b>Source Path:</b> /Design/RevB/report.pdf<br>
+<b>Source SHA-256:</b> 8f4a3c9e1b2d...a1f9<br>
+<b>Captured At:</b> 2026-09-21T10:32:11Z<br>
+<b>Tool:</b> MarkItDown<br>
+<b>Tool Version:</b> 0.1.2<br>
+<b>Derived Artifact:</b> report.md<br>
+<b>Derived SHA-256:</b> b7e2f8a1c9d0...4e2a<br>
+<b>Status:</b> VERIFIED<br>
+<button class="btn" onclick="fallbackCopy('8f4a3c9e1b2d...a1f9')">Copy Source Hash</button>
+<button class="btn" onclick="fallbackCopy('b7e2f8a1c9d0...4e2a')">Copy Derived Hash</button>
 </div>
+<div class="diagram" style="margin-top:16px">
+<div class="box" style="text-align:center"><b>Original</b><br>report.pdf<br><span class="mono">SHA256: AAA...</span></div>
+<div class="ar">→<br>Tool + Version + Time</div>
+<div class="box" style="text-align:center"><b>Transformation</b><br>MarkItDown<br>0.1.2<br>2026-09-21T10:32:11Z</div>
+<div class="ar">→</div>
+<div class="box" style="text-align:center"><b>Derived</b><br>report.md<br><span class="mono">SHA256: BBB...</span></div>
 </div>
+<p><small data-zh="哪一個原始檔，經哪一版工具，在何時，產生哪一個確切的衍生檔。" data-en="Which source, with which tool version, at what time, produced which exact derived file.">Which source, with which tool version, at what time, produced which exact derived file.</small></p>
+</div>
+
 <div class="section" id="sec-viewer">
 <h2>05 <span data-zh="證據檢視器" data-en="EVIDENCE VIEWER">EVIDENCE VIEWER</span></h2>
 <select id="evSelect" style="border:3px solid #0f1e3a;border-radius:8px;padding:8px;font-weight:900;width:100%;margin-bottom:12px">
-<option value="EV-0001">EV-0001 - report.pdf (MarkItDown)</option>
-<option value="EV-0002">EV-0002 - data.xlsx (MarkItDown)</option>
-<option value="EV-0003">EV-0003 - https://example.com/page (Crawl4AI)</option>
+<option value="EV-0001">EV-0001 - /Design/RevB/report.pdf (MarkItDown 0.1.2)</option>
+<option value="EV-0002">EV-0002 - /Design/RevA/report.pdf (MarkItDown 0.1.2) - 同名不同路徑</option>
+<option value="EV-0003">EV-0003 - /Vendor/report.pdf (Crawl4AI 0.5.0)</option>
 </select>
 <div class="viewer">
 <div class="panel"><b>SOURCE</b><div id="v-source"></div></div>
 <div class="panel"><b>ORIGINAL</b><div id="v-original"></div></div>
 <div class="panel"><b>DERIVED</b><div id="v-derived"></div></div>
 </div>
-<div style="margin-top:8px"><span id="v-id"></span> <button class="btn" id="copyId">Copy ID</button> <button class="btn" id="copyHash">Copy Hash</button></div>
+<div style="margin-top:8px"><span id="v-id" class="mono"></span><br><button class="btn" id="copyId">Copy ID</button> <button class="btn" id="copyHash">Copy Source Hash</button> <button class="btn" id="copyDerived">Copy Derived Hash</button></div>
 </div>
+
 <div class="section" id="sec-limit">
 <h2>06 <span data-zh="限制與聲明" data-en="LIMITATIONS">LIMITATIONS</span></h2>
 <div class="limit">
 <p><b>Hash ≠ Truth</b> - verifies integrity, not truthfulness.<br><b>Timestamp ≠ Authenticity</b><br><b>Derived ≠ Original</b><br><b>System ≠ Legal chain-of-custody</b></p>
-<p data-zh="Hash 可驗證檔案完整性，但不能證明來源內容本身為真。Markdown 是衍生資料，不是原始證據。" data-en="Hash verifies integrity, not truth. Markdown is derived, not evidence.">Hash 可驗證檔案完整性，但不能證明來源內容本身為真。</p>
+<p data-zh="Hash 可驗證檔案完整性，但不能證明來源內容本身為真。Markdown 是衍生資料，不是原始證據。擷取過程可能產生遺漏或格式錯誤。在用於後續主張之前，仍需要回到原始來源進行驗證。" data-en="Hash verifies integrity, not truth. Markdown is derived, not evidence. Extraction may have omissions. Verify source before downstream claims.">Hash 可驗證檔案完整性，但不能證明來源內容本身為真。</p>
 </div>
 </div>
+
 <div class="section" id="sec-appendix">
-<h2>07 <span data-zh="附錄：原始10工具勘誤對照" data-en="Appendix: Original 10-Tool Reference">Appendix: Original 10-Tool Reference</span></h2>
-<p>這10個是原始清單，為了避免稀釋主題收進 Not Core，但在此保留勘誤對照以供溯源。</p>
+<h2>07 <span data-zh="附錄：原始10工具勘誤對照" data-en="Appendix: Original 10-Tool Reference (Corrected)">Appendix: Original 10-Tool Reference (Corrected)</span></h2>
 <table>
 <tr><th>#</th><th>Tool</th><th>Repo Link</th><th>Corrected Info</th><th>Role</th></tr>
-<tr><td>1</td><td>MarkItDown</td><td><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></td><td>MIT / structure for LLM</td><td>Core</td></tr>
-<tr><td>2</td><td>Crawl4AI</td><td><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></td><td>Apache-2.0 / web→md</td><td>Core</td></tr>
+<tr><td>1</td><td>MarkItDown</td><td><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></td><td>MIT (core only; optional deps may differ, e.g. PyMuPDF/AGPL for OCR extras)</td><td>Core</td></tr>
+<tr><td>2</td><td>Crawl4AI</td><td><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></td><td>Apache-2.0; project also specifies attribution requirements — check LICENSE/README</td><td>Core</td></tr>
 <tr><td>3</td><td>Firecrawl</td><td><a href="https://github.com/mendableai/firecrawl" target="_blank">mendableai/firecrawl</a></td><td>AGPL-3.0 core, MIT SDK</td><td>Not Core</td></tr>
-<tr><td>4</td><td>Browser Use</td><td><a href="https://github.com/browser-use/browser-use" target="_blank">browser-use/browser-use</a></td><td>MIT / Agent automation</td><td>Extension</td></tr>
-<tr><td>5</td><td>Scrapling</td><td><a href="https://github.com/D4Vinci/Scrapling" target="_blank">D4Vinci/Scrapling</a></td><td>BSD-3-Clause NOT MIT</td><td>Not Core</td></tr>
-<tr><td>6</td><td>scrcpy</td><td><a href="https://github.com/Genymobile/scrcpy" target="_blank">Genymobile/scrcpy</a></td><td>Apache-2.0 / Android, NOT scraper</td><td>Not Core</td></tr>
+<tr><td>4</td><td>Browser Use</td><td><a href="https://github.com/browser-use/browser-use" target="_blank">browser-use/browser-use</a></td><td>MIT</td><td>Extension</td></tr>
+<tr><td>5</td><td>Scrapling</td><td><a href="https://github.com/D4Vinci/Scrapling" target="_blank">D4Vinci/Scrapling</a></td><td>BSD-3-Clause</td><td>Not Core</td></tr>
+<tr><td>6</td><td>scrcpy</td><td><a href="https://github.com/Genymobile/scrcpy" target="_blank">Genymobile/scrcpy</a></td><td>Apache-2.0 / Android control</td><td>Not Core</td></tr>
 <tr><td>7</td><td>curl-impersonate</td><td><a href="https://github.com/lwthiker/curl-impersonate" target="_blank">lwthiker/curl-impersonate</a></td><td>MIT / network compat only where permitted</td><td>Not Core</td></tr>
-<tr><td>8</td><td>AutoScraper</td><td><a href="https://github.com/alirezamika/autoscraper" target="_blank">alirezamika/autoscraper</a></td><td>MIT / learns rules</td><td>Not Core</td></tr>
-<tr><td>9</td><td>Scrapy</td><td><a href="https://github.com/scrapy/scrapy" target="_blank">scrapy/scrapy</a></td><td>BSD-3-Clause / mature</td><td>Extension</td></tr>
+<tr><td>8</td><td>AutoScraper</td><td><a href="https://github.com/alirezamika/autoscraper" target="_blank">alirezamika/autoscraper</a></td><td>MIT</td><td>Not Core</td></tr>
+<tr><td>9</td><td>Scrapy</td><td><a href="https://github.com/scrapy/scrapy" target="_blank">scrapy/scrapy</a></td><td>BSD-3-Clause</td><td>Extension</td></tr>
 <tr><td>10</td><td>Crawlee</td><td><a href="https://github.com/apify/crawlee" target="_blank">apify/crawlee</a></td><td>Apache-2.0</td><td>Extension</td></tr>
 </table>
 </div>
-<div class="section" style="text-align:center;opacity:.6;padding-bottom:40px">
-evidence@github.io • <a href="https://github.com/rita112025-cpu/evidence-ingestion-final-bilingual" target="_blank">GitHub Repo</a>
+
+<div class="section" style="text-align:center;opacity:.8;padding-bottom:40px;border-top:3px solid #0f1e3a;margin-top:40px;padding-top:20px">
+<div style="font-weight:900">Evidence-First Document Ingestion</div>
+<div><a href="https://github.com/rita112025-cpu/evidence-ingestion-final-bilingual" target="_blank">Source Code · GitHub</a> • Evidence-First · GitHub Pages</div>
+<div style="font-size:11px;margin-top:8px;opacity:.6">Baseline for SCADA / engineering document ingestion • Vanilla JS • No React</div>
 </div>
-<div id="toast"></div>
+
 <script>
 (function(){
-function safeLS(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}}
+function safeLS(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}}}
 var city=document.getElementById('city');
 var colors=[['green',20,60],['yellow',90,50],['green',160,70],['yellow',230,55],['green',300,65],['yellow',370,50],['green',440,60],['yellow',510,55],['green',580,70],['yellow',650,50],['green',720,60],['yellow',790,55]];
 colors.forEach(function(c){
@@ -182,14 +201,15 @@ var d=document.createElement('div');d.className='b '+c[0];d.style.left=c[1]+'px'
 for(var i=0;i<3;i++){var w=document.createElement('div');w.className='w';d.appendChild(w)}
 city.appendChild(d);
 });
+var van=document.createElement('div');van.style.position='absolute';van.style.right='20px';van.style.bottom='10px';van.style.width='60px';van.style.height='30px';van.style.background='#fde68a';van.style.border='3px solid #0f1e3a';van.style.borderRadius='8px';van.innerHTML='<div style=width:12px;height:12px;background:#0f1e3a;border-radius:50%;position:absolute;bottom:-6px;left:6px></div><div style=width:12px;height:12px;background:#0f1e3a;border-radius:50%;position:absolute;bottom:-6px;right:6px></div>';city.appendChild(van);
 var sections=[
-{id:'sec-why',en:'WHY EVIDENCE-FIRST',zh:'為何證據優先'},
-{id:'sec-pipeline',en:'INGESTION PIPELINE',zh:'擷取流程'},
-{id:'sec-core',en:'CORE TOOLS',zh:'核心工具'},
-{id:'sec-chain',en:'EVIDENCE CHAIN',zh:'證據鏈'},
-{id:'sec-viewer',en:'EVIDENCE VIEWER',zh:'證據檢視器'},
-{id:'sec-limit',en:'LIMITATIONS',zh:'限制與聲明'},
-{id:'sec-appendix',en:'APPENDIX: 10-TOOLS',zh:'附錄：10工具對照'}
+{id:'sec-why',en:'01 WHY EVIDENCE-FIRST',zh:'01 為何證據優先'},
+{id:'sec-pipeline',en:'02 INGESTION PIPELINE',zh:'02 擷取流程'},
+{id:'sec-core',en:'03 CORE TOOLS',zh:'03 核心工具'},
+{id:'sec-chain',en:'04 EVIDENCE CHAIN',zh:'04 證據鏈'},
+{id:'sec-viewer',en:'05 EVIDENCE VIEWER',zh:'05 證據檢視器'},
+{id:'sec-limit',en:'06 LIMITATIONS',zh:'06 限制與聲明'},
+{id:'sec-appendix',en:'07 APPENDIX: 10-TOOLS',zh:'07 附錄：10工具對照'}
 ];
 var menu=document.getElementById('menu');
 function renderMenu(){
@@ -203,9 +223,9 @@ menu.appendChild(li);
 });
 }
 var data={
-'EV-0001':{src:'Source: report.pdf<br>SHA-256: 8f4a3c9e1b2d...a1f9<br>Captured: 2026-09-21T10:32:11Z<br>Tool: MarkItDown',orig:'ORIGINAL<br>Page 7<br><i>“The quarterly revenue increased by 12%...”</i>',deriv:'DERIVED<br>report.md<br>## Revenue<br>Quarterly revenue +12%',hash:'8f4a3c9e1b2d...a1f9'},
-'EV-0002':{src:'Source: data.xlsx<br>SHA-256: b2c1d...<br>Captured: 2026-09-21T11:02:11Z<br>Tool: MarkItDown',orig:'ORIGINAL<br>Sheet: Sales<br>Row 42: 1280',deriv:'DERIVED<br>data.md<br>| Sales | 1280 |',hash:'b2c1d...e3f4'},
-'EV-0003':{src:'Source: https://example.com/page<br>SHA-256: c3d4e...<br>Captured: 2026-09-21T12:00:00Z<br>Tool: Crawl4AI',orig:'ORIGINAL<br>HTML <h1>Example</h1>',deriv:'DERIVED<br>page.md<br># Example',hash:'c3d4e...f5g6'}
+'EV-0001':{src:'Source Name: report.pdf<br>Source Path: /Design/RevB/report.pdf<br>Source SHA-256: 8f4a3c9e1b2d...a1f9<br>Captured At: 2026-09-21T10:32:11Z<br>Tool: MarkItDown<br>Tool Version: 0.1.2<br>Derived: report.md<br>Derived SHA-256: b7e2f8a1...4e2a',orig:'ORIGINAL<br>/Design/RevB/report.pdf<br>Page 7<br><i>“The quarterly revenue increased by 12%...”</i>',deriv:'DERIVED<br>report.md<br>SHA: b7e2f8a1...4e2a<br>## Revenue<br>Quarterly revenue +12%',hash:'8f4a3c9e1b2d...a1f9',dhash:'b7e2f8a1...4e2a'},
+'EV-0002':{src:'Source Name: report.pdf<br>Source Path: /Design/RevA/report.pdf<br>Source SHA-256: 9f5b...<br>Same name, different path!',orig:'ORIGINAL<br>/Design/RevA/report.pdf<br>Old version',deriv:'DERIVED<br>report_revA.md',hash:'9f5b...c2d3',dhash:'c8f9...d4e5'},
+'EV-0003':{src:'Source Name: report.pdf<br>Source Path: /Vendor/report.pdf<br>Source SHA-256: a1b2...<br>Vendor doc',orig:'ORIGINAL<br>/Vendor/report.pdf',deriv:'DERIVED<br>vendor_report.md',hash:'a1b2...f6g7',dhash:'e9fa...g8h9'}
 };
 function renderViewer(){
 var id=document.getElementById('evSelect').value;
@@ -213,21 +233,19 @@ var d=data[id];
 document.getElementById('v-source').innerHTML=d.src;
 document.getElementById('v-original').innerHTML=d.orig;
 document.getElementById('v-derived').innerHTML=d.deriv;
-document.getElementById('v-id').textContent=id+' | '+d.hash;
+document.getElementById('v-id').textContent=id+' | SRC:'+d.hash+' | DERIVED:'+d.dhash;
 }
 document.getElementById('evSelect').addEventListener('change',renderViewer);
-document.getElementById('copyId').onclick=function(){var id=document.getElementById('evSelect').value;fallbackCopy(id)};
+document.getElementById('copyId').onclick=function(){fallbackCopy(document.getElementById('evSelect').value)};
 document.getElementById('copyHash').onclick=function(){var id=document.getElementById('evSelect').value;fallbackCopy(data[id].hash)};
-var toastTimer=null;
-function showToast(msg){var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove('show')},1600)}
-function fallbackCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){showToast('Copied: '+t)}).catch(function(){execCopy(t)})}else{execCopy(t)}}
-function execCopy(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showToast('Copied: '+t)}catch(e){prompt('Copy manually',t)}document.body.removeChild(ta)}
+document.getElementById('copyDerived').onclick=function(){var id=document.getElementById('evSelect').value;fallbackCopy(data[id].dhash)};
+function fallbackCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert('Copied: '+t)}).catch(function(){execCopy(t)})}else{execCopy(t)}}
+function execCopy(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Copied: '+t)}catch(e){prompt('Copy manually',t)}document.body.removeChild(ta)}
 window.fallbackCopy=fallbackCopy;
 function applyLang(l){
 document.querySelectorAll('[data-zh]').forEach(function(el){el.textContent=l==='zh'?el.getAttribute('data-zh'):el.getAttribute('data-en')});
 document.getElementById('langBtn').textContent=l==='zh'?'EN | 繁中':'繁中 | EN';
-safeLS('lang',l);
-renderMenu();
+safeLS('lang',l);renderMenu();
 }
 function applyTheme(t){
 document.body.classList.toggle('dark',t==='dark');
@@ -238,10 +256,7 @@ document.getElementById('langBtn').onclick=function(){var cur=safeLS('lang')||'e
 document.getElementById('themeBtn').onclick=function(){var cur=safeLS('theme')||'light';applyTheme(cur==='light'?'dark':'light')};
 var initLang=safeLS('lang')||'en';
 var initTheme=safeLS('theme')||'light';
-applyLang(initLang);
-applyTheme(initTheme);
-renderViewer();
-renderMenu();
+applyLang(initLang);applyTheme(initTheme);renderViewer();renderMenu();
 })();
 </script>
 </body>
