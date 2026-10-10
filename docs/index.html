@@ -193,7 +193,8 @@ body.dark .mono{background:#0f1221}
 
 <script>
 (function(){
-function safeLS(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}}}
+var mem={};
+function safeLS(k,v){if(v===undefined){var r=null;try{r=localStorage.getItem(k)}catch(e){}return r||mem[k]||null}mem[k]=v;try{localStorage.setItem(k,v)}catch(e){}}
 var city=document.getElementById('city');
 var colors=[['green',20,60],['yellow',90,50],['green',160,70],['yellow',230,55],['green',300,65],['yellow',370,50],['green',440,60],['yellow',510,55],['green',580,70],['yellow',650,50],['green',720,60],['yellow',790,55]];
 colors.forEach(function(c){
